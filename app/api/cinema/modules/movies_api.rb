@@ -6,9 +6,8 @@ module Cinema
         requires :day, type: Integer, documentation: { example: '0 for Monday, 6 for Sunday' }
       end
       get do
-        { hello: 'world' }
+        { hello: params[:day] }
       end
     end
-
   end
 end

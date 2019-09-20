@@ -1,2 +1,2 @@
-# cinema
+# Cinema
 Cinema Reserve API
