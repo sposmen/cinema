@@ -14,13 +14,13 @@ end
 namespace :db do
   desc "Create database"
   task :create do
-    Sequel.connect("postgres://localhost:5434/postgres", user: 'postgres') do |db|
+    Sequel.connect("postgres://postgres@localhost:5434/postgres") do |db|
       db.execute "CREATE DATABASE cinema_#{env}"
     end
   end
   desc "Drop database"
   task :drop do
-    Sequel.connect("postgres://localhost:5434/postgres", user: 'postgres') do |db|
+    Sequel.connect("postgres://postgres@localhost:5434/postgres") do |db|
       db.execute "DROP DATABASE IF EXISTS cinema_#{env}"
     end
   end
@@ -29,7 +29,7 @@ namespace :db do
     require "sequel/core"
     Sequel.extension :migration
     version = args[:version].to_i if args[:version]
-    Sequel.connect("postgres://localhost:5434/cinema_#{env}", user: 'postgres') do |db|
+    Sequel.connect(ENV['DATABASE_URL'] || "postgres://postgres@localhost:5434/cinema_#{env}") do |db|
       Sequel::Migrator.run(db, "db/migrations", target: version)
     end
   end
