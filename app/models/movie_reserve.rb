@@ -1,2 +1,2 @@
-class MovieReserve
+class MovieReserve < Sequel::Model
 end

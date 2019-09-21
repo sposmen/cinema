@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  citus-master:
+    image: citusdata/citus:8.2.1
+    ports:
+      - 5434:5432
+
+volumes:
+  mysql-data:
+  redis-data:
