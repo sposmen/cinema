@@ -3,7 +3,7 @@ require 'grape'
 require 'json'
 
 # Environment
-env = ENV.fetch('RUBY_ENV') { 'development' }
+env = ENV.fetch('RACK_ENV') { 'development' }
 require File.expand_path("../config/environment/#{env}", File.dirname(__FILE__))
 
 # Models

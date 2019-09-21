@@ -5,7 +5,7 @@ Bundler.setup
 require 'grape-route-helpers'
 require 'grape-route-helpers/tasks'
 
-env = ENV.fetch('RUBY_ENV') { 'development' }
+env = ENV.fetch('RACK_ENV') { 'development' }
 
 task :environment do
   require File.expand_path('app/api/cinema/api', File.dirname(__FILE__))
