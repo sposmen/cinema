@@ -1,6 +1,6 @@
-
 require 'capybara/rspec'
 
+require_relative '../config/application.rb'
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -87,4 +87,10 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+  config.include Capybara::DSL
+end
+
+Capybara.configure do |config|
+  config.app = Cinema::Api.new
+  config.server_port = 9293
 end
