@@ -16,7 +16,7 @@ class MoviesService
 
     def show_movie_list(day)
       return OpenStruct.new(
-        errors: {error => INVALID_DAY_MSG}
+        errors: {error: INVALID_DAY_MSG}
       ) unless day.is_a?(Integer) && day >= 0 && day < 7
 
       movies = Movie.where(
