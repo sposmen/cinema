@@ -1,6 +1,6 @@
 # Cinema
 
-Cinema Reserve API
+Cinema Reservation API
 
-To see the documentation see our [Wiki](wiki/)
+To see the documentation see our [Wiki](wiki)
 
