@@ -30,5 +30,10 @@ module Cinema
     mount Cinema::MoviesAPI
     mount Cinema::MovieReservesAPI
 
+    get do
+      content_type 'text/plain'
+      body 'To use this API read the documentation'
+    end
+
   end
 end

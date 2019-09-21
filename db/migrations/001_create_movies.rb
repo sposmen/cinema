@@ -5,7 +5,7 @@ Sequel.migration do
       String :name, null: false
       String :description
       String :image_url
-      String :days_shown
+      Integer :days_shown ,null: false, default: 0
     end
   end
 end
