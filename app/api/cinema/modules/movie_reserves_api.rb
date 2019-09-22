@@ -1,6 +1,6 @@
 module Cinema
   class MovieReservesAPI < Grape::API
-    namespace :movie_reserves do
+      namespace :movie_reserves do
       desc 'Redirection'
       get do
         redirect '/v1'

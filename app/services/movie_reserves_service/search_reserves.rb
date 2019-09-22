@@ -7,9 +7,7 @@ module MovieReservesService
 
     def validate(date_range)
       unless date_range[:from].is_a?(Date) && date_range[:to].is_a?(Date) && date_range[:to] >= date_range[:from]
-        Failure(OpenStruct.new(
-          errors: {error: INVALID_DAY_MSG}
-        ))
+        return Failure(error: INVALID_DATES_MSG)
       end
 
       Success(date_range)

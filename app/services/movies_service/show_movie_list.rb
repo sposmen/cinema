@@ -7,9 +7,7 @@ module MoviesService
 
     def validate(day)
       unless day.is_a?(Integer) && day >= 0 && day < 7
-        Failure(OpenStruct.new(
-          errors: {error: INVALID_DAY_MSG}
-        ))
+        return Failure({error: INVALID_DAY_MSG})
       end
       Success(day)
     end

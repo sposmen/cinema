@@ -1,6 +1,8 @@
 Dir[File.join(__dir__, 'movie_reserves_service/*.rb')].each { |file| require file }
 
 module MovieReservesService
+  INVALID_DATES_MSG = 'Invalid Date Range'
+
   def self.search_reservations(date_range)
     SearchReserves.new.call(date_range)
   end
