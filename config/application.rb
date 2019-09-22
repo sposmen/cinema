@@ -1,6 +1,7 @@
 require 'sequel'
 require 'grape'
 require 'json'
+require 'dry-transaction'
 
 # Environment
 env = ENV.fetch('RACK_ENV') { 'development' }

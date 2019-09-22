@@ -12,9 +12,9 @@ module Cinema
       get ':day' do
         movie_list = MoviesService.show_movie_list(params[:day])
 
-        error!(movie_list.errors, 400) if movie_list.respond_to? :errors
+        error!(movie_list.failure, 400) unless movie_list.success?
 
-        movie_list
+        movie_list.success
       end
 
       desc 'Adds movie'
@@ -27,11 +27,12 @@ module Cinema
 
       post do
         movie_params = params.slice(:name, :days_shown, :description, :image_url)
+
         movie_creation = MoviesService.create_movie(movie_params)
 
-        error!(movie_creation.errors, 400) unless movie_creation.valid?
+        error!(movie_creation.failure, 400) unless movie_creation.success?
 
-        MoviesService.show_movie movie_creation
+        movie_creation.success
       end
     end
   end

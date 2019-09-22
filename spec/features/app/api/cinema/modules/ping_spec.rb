@@ -8,4 +8,3 @@ RSpec.describe "requesting /ping" do
     is_expected.to include(:branch, :commit, ping: "pong")
   end
 end
-
