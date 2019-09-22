@@ -9,12 +9,19 @@ module Cinema
       params do
         requires :day, type: Integer, documentation: { example: '0 for Monday, 6 for Sunday' }
       end
-      get ':day' do
+      get '/search' do
         movie_list = MoviesService.show_movie_list(params[:day])
 
         error!(movie_list.failure, 400) unless movie_list.success?
 
         movie_list.success
+      end
+
+      params do
+        requires :id, type: Integer, documentation: { example: '0 for Monday, 6 for Sunday' }
+      end
+      get ':id' do
+        Movie.find(id: params[:id])&.to_hash
       end
 
       desc 'Adds movie'
