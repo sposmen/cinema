@@ -8,6 +8,7 @@ env = ENV.fetch('RACK_ENV') { 'development' }
 require File.expand_path("../config/environment/#{env}", File.dirname(__FILE__))
 
 # Models
+Sequel::Model.plugin :update_or_create
 Dir[File.join(__dir__, '../app/models/*.rb')].each {|file| require file }
 
 # Services

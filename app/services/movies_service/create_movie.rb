@@ -15,7 +15,7 @@ module MoviesService
 
     def create(movie)
       movie.save
-      Success(MoviesService.show_movie(movie))
+      Success(MoviesService.show_movie movie)
     end
   end
 end

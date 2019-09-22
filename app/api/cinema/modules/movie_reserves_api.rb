@@ -26,7 +26,12 @@ module Cinema
         requires :person_name, type: String
       end
       post do
-        { hello: 'world' }
+        reserve_params = params.slice(:movie_id, :date, :person_name)
+        movies_reserves = MovieReservesService.add_reserve(reserve_params)
+
+        error!(movies_reserves.failure, 400) unless movies_reserves.success?
+
+        movies_reserves.success
       end
     end
   end
