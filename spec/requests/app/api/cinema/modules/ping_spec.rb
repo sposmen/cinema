@@ -1,7 +1,8 @@
-RSpec.describe "requesting /ping" do
+RSpec.describe Cinema::Ping do
   subject(:ping) do
-    visit '/v1/ping'
-    JSON.parse(page.body, symbolize_names: true)
+    response = get '/v1/ping'
+
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   it "has the ping keys" do

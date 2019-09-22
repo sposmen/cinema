@@ -1,6 +1,9 @@
-require 'capybara/rspec'
+ENV['RACK_ENV'] = 'test'
 
-require_relative '../config/application.rb'
+require 'faker'
+require "rack/test"
+
+Rack::Builder.parse_file("config.ru").first
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -87,10 +90,17 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-  config.include Capybara::DSL
-end
 
-Capybara.configure do |config|
-  config.app = Cinema::Api.new
-  config.server_port = 9293
+  # Rack Methods
+  config.include Rack::Test::Methods
+
+  # App initialize
+  def app
+    Cinema::Api # this defines the active application for this test
+  end
+
+  # DB mock
+  config.around(:each) do |example|
+    DB.transaction(:rollback=>:always, :auto_savepoint=>true){example.run}
+  end
 end

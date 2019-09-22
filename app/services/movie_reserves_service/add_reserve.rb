@@ -40,6 +40,7 @@ module MovieReservesService
         occupancy << reserve_params[:person_name]
         movie_reserve.person_list = occupancy.join("\n")
       else
+        # TODO: check a massive way to set find_or_new
         movie_reserve.movie_id = reserve_params[:movie_id]
         movie_reserve.date = reserve_params[:date]
         movie_reserve.person_list = reserve_params[:person_name]
