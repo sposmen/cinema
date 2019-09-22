@@ -28,4 +28,56 @@ RSpec.describe Cinema::MoviesAPI do
       end
     end
   end
+
+  describe "Movie List by Day" do
+    let(:query) { {day: 0} }
+
+    let(:movie_name) { Faker::Name.name }
+    let(:days_shown_array) { [true, false, true, false, true, false, true] }
+    let(:days_shown) { MoviesService.days_sum days_shown_array }
+
+
+    let!(:movie) { Movie.create(name: movie_name, days_shown: days_shown) }
+
+    subject(:search) {
+      response = get "/v1/movies/search", query
+      JSON.parse(response.body, symbolize_names: true)
+    }
+
+    context 'on success' do
+      context 'handles the movie for Monday' do
+        it do
+          is_expected.to include(
+                           hash_including(
+                             id: movie.id,
+                             name: movie_name,
+                             days_shown: days_shown_array
+                           )
+                         )
+        end
+      end
+
+      context 'handles empty movies when no result' do
+        let(:query) { {day: 1} }
+        it do
+          is_expected.to be_empty
+        end
+      end
+    end
+
+    context 'on error' do
+      context 'when bad day' do
+        let(:query) { {day: 8} }
+        it 'shows errors' do
+          is_expected.to include(error: 'Invalid day parameter')
+        end
+      end
+      context 'when bad day' do
+        let(:query) { }
+        it 'shows errors' do
+          is_expected.to include(error: 'day is missing')
+        end
+      end
+    end
+  end
 end
