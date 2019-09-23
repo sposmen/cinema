@@ -36,7 +36,6 @@ RSpec.describe Cinema::MoviesAPI do
     let(:days_shown_array) { [true, false, true, false, true, false, true] }
     let(:days_shown) { MoviesService.days_sum days_shown_array }
 
-
     let!(:movie) { Movie.create(name: movie_name, days_shown: days_shown) }
 
     subject(:search) {
