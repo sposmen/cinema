@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MovieReservesService
   class SearchReserves
     include Dry::Transaction

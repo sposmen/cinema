@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Dir[File.join(__dir__, 'movie_reserves_service/*.rb')].each { |file| require file }
 
 module MovieReservesService
@@ -30,5 +32,4 @@ module MovieReservesService
       .where(id: movie_id)
       .where(Sequel.lit("(days_shown::bit(7) & #{MoviesService::BIT_DAYS[day]}::bit(7)) <> 0::bit(7)"))
   end
-
 end

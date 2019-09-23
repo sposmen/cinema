@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 RSpec.describe Cinema::MoviesAPI do
-  describe "Movie Creation" do
-    let(:movie_params) {
+  describe 'Movie Creation' do
+    let(:movie_params) do
       {
         name: Faker::Name.name,
         description: Faker::Lorem.paragraph,
         image_url: Faker::Internet.url,
         days_shown: [true, false, true, false, true, false, true]
       }
-    }
-    subject(:create_movie) {
+    end
+    subject(:create_movie) do
       response = post '/v1/movies', movie_params
       JSON.parse(response.body, symbolize_names: true)
-    }
+    end
 
     context 'on success' do
       it 'response with required attrs' do
@@ -29,8 +31,8 @@ RSpec.describe Cinema::MoviesAPI do
     end
   end
 
-  describe "Movie List by Day" do
-    let(:query) { {day: 0} }
+  describe 'Movie List by Day' do
+    let(:query) { { day: 0 } }
 
     let(:movie_name) { Faker::Name.name }
     let(:days_shown_array) { [true, false, true, false, true, false, true] }
@@ -38,26 +40,26 @@ RSpec.describe Cinema::MoviesAPI do
 
     let!(:movie) { Movie.create(name: movie_name, days_shown: days_shown) }
 
-    subject(:search) {
-      response = get "/v1/movies/search", query
+    subject(:search) do
+      response = get '/v1/movies/search', query
       JSON.parse(response.body, symbolize_names: true)
-    }
+    end
 
     context 'on success' do
       context 'handles the movie for Monday' do
         it do
           is_expected.to include(
-                           hash_including(
-                             id: movie.id,
-                             name: movie_name,
-                             days_shown: days_shown_array
-                           )
-                         )
+            hash_including(
+              id: movie.id,
+              name: movie_name,
+              days_shown: days_shown_array
+            )
+          )
         end
       end
 
       context 'handles empty movies when no result' do
-        let(:query) { {day: 1} }
+        let(:query) { { day: 1 } }
         it do
           is_expected.to be_empty
         end
@@ -66,13 +68,13 @@ RSpec.describe Cinema::MoviesAPI do
 
     context 'on error' do
       context 'when bad day' do
-        let(:query) { {day: 8} }
+        let(:query) { { day: 8 } }
         it 'shows errors' do
           is_expected.to include(error: 'Invalid day parameter')
         end
       end
       context 'when bad day' do
-        let(:query) { }
+        let(:query) {}
         it 'shows errors' do
           is_expected.to include(error: 'day is missing')
         end

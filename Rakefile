@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rake'
 require 'bundler'
 require 'sequel'
@@ -12,25 +14,25 @@ task :environment do
 end
 
 namespace :db do
-  desc "Create database"
+  desc 'Create database'
   task :create do
-    Sequel.connect("postgres://postgres@localhost:5434/postgres") do |db|
+    Sequel.connect('postgres://postgres@localhost:5434/postgres') do |db|
       db.execute "CREATE DATABASE cinema_#{env}"
     end
   end
-  desc "Drop database"
+  desc 'Drop database'
   task :drop do
-    Sequel.connect("postgres://postgres@localhost:5434/postgres") do |db|
+    Sequel.connect('postgres://postgres@localhost:5434/postgres') do |db|
       db.execute "DROP DATABASE IF EXISTS cinema_#{env}"
     end
   end
-  desc "Run migrations"
-  task :migrate, [:version] do |t, args|
-    require "sequel/core"
+  desc 'Run migrations'
+  task :migrate, [:version] do |_t, args|
+    require 'sequel/core'
     Sequel.extension :migration
     version = args[:version].to_i if args[:version]
     Sequel.connect(ENV['DATABASE_URL'] || "postgres://postgres@localhost:5434/cinema_#{env}") do |db|
-      Sequel::Migrator.run(db, "db/migrations", target: version)
+      Sequel::Migrator.run(db, 'db/migrations', target: version)
     end
   end
 end

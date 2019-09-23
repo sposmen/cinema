@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cinema
   class MoviesAPI < Grape::API
     namespace :movies do

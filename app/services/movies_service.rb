@@ -1,7 +1,9 @@
-Dir[File.join(__dir__, 'movies_service/*.rb')].each {|file| require file }
+# frozen_string_literal: true
+
+Dir[File.join(__dir__, 'movies_service/*.rb')].each { |file| require file }
 
 module MoviesService
-  class MoviesServiceError < StandardError;
+  class MoviesServiceError < StandardError
   end
 
   BIT_DAYS = [64, 32, 16, 8, 4, 2, 1].freeze
@@ -31,8 +33,8 @@ module MoviesService
   end
 
   def self.days_array(days_shown)
-    ("%07d" % days_shown.to_s(2))
+    ('%07d' % days_shown.to_s(2))
       .split('')
-      .map { |v| v == '1' ? true : false }
+      .map { |v| v == '1' }
   end
 end

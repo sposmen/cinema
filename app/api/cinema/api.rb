@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # require_relative '../../../config/application'
 
 # Modules
@@ -23,7 +25,7 @@ Dir[File.join(__dir__, 'modules/*.rb')].each { |file| require file }
 
 module Cinema
   class Api < Grape::API
-    version 'v1', :using => :path
+    version 'v1', using: :path
     format :json
 
     mount Cinema::Ping
@@ -34,6 +36,5 @@ module Cinema
       content_type 'text/plain'
       body 'To use this API read the documentation'
     end
-
   end
 end

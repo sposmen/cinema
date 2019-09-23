@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MoviesService
   class ShowMovieList
     include Dry::Transaction
@@ -7,8 +9,9 @@ module MoviesService
 
     def validate(day)
       unless day.is_a?(Integer) && day >= 0 && day < 7
-        return Failure({error: INVALID_DAY_MSG})
+        return Failure(error: INVALID_DAY_MSG)
       end
+
       Success(day)
     end
 
